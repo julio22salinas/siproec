@@ -29,14 +29,27 @@ Route::group(['prefix'=>'admin'], function(){
         'uses' => 'UsersController@cursos',
         'as'   => 'admin.users.cursos'
     ]);
-  
+    
+    Route::get('users/{id}/eliminardiplo', [
+        'uses' => 'UsersController@eliminardiplo',
+        'as'   => 'admin.users.eliminardiplo'
+    ]);
+    Route::get('users/{id}/eliminarcurso', [
+        'uses' => 'UsersController@eliminarcurso',
+        'as'   => 'admin.users.eliminarcurso'
+    ]);
+    Route::get('users/{id}/eliminarseminario', [
+        'uses' => 'UsersController@eliminarseminario',
+        'as'   => 'admin.users.eliminarseminario'
+    ]);
         
     Route::resource('users','UsersController');
-   
+      
     Route::get('users/{id}/destroy', [
        'uses' => 'UsersController@destroy',
        'as'   => 'admin.users.destroy'
    ]);
+  
  
   
  

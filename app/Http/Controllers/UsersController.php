@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Diplomado;
+use App\Curso;
+use App\Seminario;
 use App;
 use Laracasts\Flash\Flash;
 use App\Http\Requests\UserRequest;
@@ -22,16 +25,20 @@ class UsersController extends Controller
         return view('welcome', compact('notas'));
     }
 
+
     public function diplomado(){
-        return view('admin.users.diplomado');
+        $diplomados=App\Diplomado::all();
+        return view('admin.users.diplomado', compact('diplomados'));
+       // return view('admin.users.diplomado');
     }
 
     public function seminarios(){
-        return view('admin.users.seminarios');
-    }
+        $seminarios=App\Seminario::all();
+        return view('admin.users.seminarios', compact('seminarios'));    }
+
     public function cursos(){
-        return view('admin.users.cursos');
-    }
+        $cursos=App\Curso::all();
+        return view('admin.users.cursos', compact('cursos'));    }
 
     public function edit($id){
         $user = User::find($id);   
@@ -79,6 +86,28 @@ class UsersController extends Controller
         $user->delete();
         Flash::error('Se ha eliminado '.$user->name." ".$user->ape.' de forma exitosa');
         return redirect()->route('users.index');
+
+    }
+
+    public function eliminardiplo($id){
+        $user = Diplomado::find($id);
+        $user->delete();
+        Flash::error('Se ha eliminado '.$user->name_diplomado." con ID: ".$user->id_diplomado.' de forma exitosa');
+        return redirect()->route('admin.users.diplomado');
+
+    }
+    public function eliminarcurso($id){
+        $user = Curso::find($id);
+        $user->delete();
+        Flash::error('Se ha eliminado '.$user->name_curso." con ID: ".$user->id_curso.' de forma exitosa');
+        return redirect()->route('admin.users.cursos');
+
+    }
+    public function eliminarseminario($id){
+        $user = Seminario::find($id);
+        $user->delete();
+        Flash::error('Se ha eliminado '.$user->name_seminario." con ID: ".$user->id_seminario.' de forma exitosa');
+        return redirect()->route('admin.users.seminarios');
 
     }
 
